@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # Based on https://artificialcognition.github.io/who-owns-the-zebra
 
-
+# Requires the python-constraint package
 from constraint import *
 
-positions =      [ 1, 2, 3, 4, 5 ]
+positions =     [ 1, 2, 3, 4, 5 ]
 colors =        ['red', 'green', 'white', 'yellow', 'blue']
 nationalities = ['Brit', 'Swede', 'Dane', 'Norwegian', 'German']
 cigars =        ['Pall Mall', 'Dunhill', 'Blends', 'Blue Master', 'Prince']
@@ -40,10 +40,11 @@ problem.addConstraint(lambda bm, b: bm==b, ["Blue Master", "beer"])
 problem.addConstraint(lambda g, p: g==p, ["German", "Prince"])
 problem.addConstraint(lambda n, b: abs(n-b)==1, ["Norwegian", "blue"])
 
-solution = problem.getSolutions()
+
+solution = problem.getSolutions() # There might be more than one
 print(f"Solutions found: {len(solution)}")
 
 for i in positions:
-    for x in solution[0]:
+    for x in solution[0]: # We just choose the first solution
         if solution[0][x] == i:
             print(str(i), x)
